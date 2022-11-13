@@ -1,0 +1,24 @@
+{
+  "name": "enable-assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UtkarshaAgrawal/enable-assignment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UtkarshaAgrawal/enable-assignment/issues"
+  },
+  "homepage": "https://github.com/UtkarshaAgrawal/enable-assignment#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.27.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
