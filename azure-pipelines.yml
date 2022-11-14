@@ -39,7 +39,7 @@ steps:
     targetFolder: $(Build.SourcesDirectory)
 
 - script: |
-    ./node_modules/.bin/playwright test
+    ./node_modules/.bin/playwright test --worker=1
   displayName: 'Run Enable Automation Tests'
 
 - task: PublishBuildArtifacts@1
