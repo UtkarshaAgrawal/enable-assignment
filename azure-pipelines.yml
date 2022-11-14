@@ -42,6 +42,12 @@ steps:
     ./node_modules/.bin/playwright test --worker=1
   displayName: 'Run Enable Automation Tests'
 
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'results.xml'
+
 - task: PublishBuildArtifacts@1
   condition: succeededOrFailed()
   inputs:
