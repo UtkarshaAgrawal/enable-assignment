@@ -4,52 +4,62 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- main
+  - main
 
 pr:
-- main
+  - main
 
 pool:
   name: default
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '18.x'
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "18.x"
+    displayName: "Install Node.js"
 
-- script: |
-    npm install
-  displayName: 'npm install'
+  - script: |
+      npm install
+    displayName: "npm install"
 
-- script: |
-    npx playwright install 
-  displayName: 'Install playwright browsers'
+  - script: |
+      npx playwright install
+    displayName: "Install playwright browsers"
 
-- task: DownloadSecureFile@1
-  name: env
-  displayName: 'download .env file'
-  inputs:
-    secureFile: '.env'
+  - task: DownloadSecureFile@1
+    name: env
+    displayName: "download .env file"
+    inputs:
+      secureFile: ".env"
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: $(Agent.TempDirectory)
-    contents: $(env.secureFilePath)
-    targetFolder: $(Build.SourcesDirectory)
+  - task: CopyFiles@2
+    inputs:
+      sourceFolder: $(Agent.TempDirectory)
+      contents: $(env.secureFilePath)
+      targetFolder: $(Build.SourcesDirectory)
 
 - script: |
     ./node_modules/.bin/playwright test --workers=1
   displayName: 'Run Enable Automation Tests'
+ 
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFormat: "JUnit"
+      testResultsFiles: "results.xml"
 
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: 'results.xml'
+  - task: PublishBuildArtifacts@1
+    condition: succeededOrFailed()
+    inputs:
+      pathToPublish: "playwright-report/"
+      artifactName: "Playwright Test Report"
 
-- task: PublishBuildArtifacts@1
-  condition: succeededOrFailed()
-  inputs:
-    pathToPublish: 'playwright-report/'
-    artifactName: 'Playwright Test Report'
+  - script: |
+      ./node_modules/.bin/allure generate ./allure-results --clean
+    displayName: "Generate Allure Test Report"
+
+  - task: PublishBuildArtifacts@1
+    condition: succeededOrFailed()
+    inputs:
+      pathToPublish: "allure-report/"
+      artifactName: "Publish Allure Report"
