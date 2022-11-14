@@ -47,16 +47,12 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     this.testarticleLink = page.locator(".blog-article-tile__link");
     this.testProgramLink = page.locator('a[href*="Deals/Deals/Wizard"]');
     this.browsesupplierLink = page.locator("text=Browse suppliers");
-    this.getstartedTile = page.locator(
-      ".tiles-container__tile >> text=Get Started"
-    );
-    this.tilesContainer = page.locator(
-      ".tiles-container__tile >> text=Get Started"
-    );
+    this.getstartedTile = page.locator(".userflow");
+    // this.tilesContainer = page.locator(
+    //   ".tiles-container__tile >> text=Get Started"
+    // );
     this.frame1 = page.frameLocator('iframe[role="presentation"]').first();
-    this.frame1Button = this.frame1.locator(
-      'button[data-testid="minimize-button"]'
-    );
+    this.frame1Button = this.frame1.locator('[data-testid="minimize-button"]');
     this.programearningFile = page.locator("text=Program Earnings");
     this.dailyearningTile = page.locator("text=Daily Earnings");
     this.transactionTile = page.locator("text=Transactions");
@@ -64,7 +60,7 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     this.myreportTile = page.locator("text=My Reports");
     this.debtorsreportTile = page.locator("text=Debtors Report");
     this.paymentallocationTile = page.locator("text=Payment Allocation");
-    this.paymenthistoryTile = page.locator("text=Payment History");
+    this.paymenthistoryTile = page.locator("text=Payment History").first();
     this.snapshotTile = page.locator("text=Snapshots");
     this.watchlistTile = page.locator("text=Watchlist");
     this.processingTile = page.locator("text=Processing");
@@ -166,6 +162,7 @@ exports.EnableDashboardPage = class EnableDashboardPage {
       this.testarticleLink.click(),
     ]);
     await newPage.waitForLoadState("networkidle");
+    await newPage.context().pages().at(1).close();
     await this.page.bringToFront();
     await this.page.waitForLoadState("networkidle");
   }
@@ -188,15 +185,15 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     // check the get started tile is present on the page
     await this.page.waitForLoadState("networkidle");
     await this.getstartedTile.hover();
-    await this.tilesContainer.click({ force: true });
+    await this.getstartedTile.click();
     await this.page.waitForLoadState("networkidle");
-    await this.frame1Button.waitFor();
+    //await this.frame1Button.waitFor();
     await this.frame1Button.click();
   }
 
   async testProgramearningfile() {
     //check the program earnings tile is present on the page
-    await this.programearningFile.hover();
+    //await this.programearningFile.hover();
     await this.programearningFile.click();
     await this.page.waitForLoadState("networkidle");
     await expect
@@ -205,6 +202,7 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     await expect
       .soft(this.page)
       .toHaveURL(`${process.env.ENABLE_BASE_URL}/Reports/DealEarnings`);
+    await this.page.waitForLoadState("networkidle");
     await this.page.goBack();
   }
 
@@ -218,6 +216,7 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     await expect
       .soft(this.page)
       .toHaveURL(`${process.env.ENABLE_BASE_URL}/Reports/DailyEarnings`);
+    await this.page.waitForLoadState("networkidle");
     await this.page.goBack();
   }
 
@@ -228,6 +227,7 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     await expect
       .soft(this.page)
       .toHaveURL(`${process.env.ENABLE_BASE_URL}/Reports/TurnoverExtract`);
+    await this.page.waitForLoadState("networkidle");
     await this.page.goBack();
   }
 
@@ -252,6 +252,7 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     await expect
       .soft(this.page)
       .toHaveURL(`${process.env.ENABLE_BASE_URL}/Reports`);
+    await this.page.waitForLoadState("networkidle");
     await this.page.goBack();
   }
 
@@ -264,6 +265,7 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     await expect
       .soft(this.page)
       .toHaveURL(`${process.env.ENABLE_BASE_URL}/Cash/DebtorsReport`);
+    await this.page.waitForLoadState("networkidle");
     await this.page.goBack();
   }
 
@@ -276,6 +278,7 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     await expect
       .soft(this.page)
       .toHaveURL(`${process.env.ENABLE_BASE_URL}/Cash/PaymentAllocation`);
+    await this.page.waitForLoadState("networkidle");
     await this.page.goBack();
   }
 
@@ -288,6 +291,7 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     await expect
       .soft(this.page)
       .toHaveURL(`${process.env.ENABLE_BASE_URL}/Cash/PaymentHistory`);
+    await this.page.waitForLoadState("networkidle");
     await this.page.goBack();
   }
 
@@ -299,6 +303,7 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     await expect
       .soft(this.page)
       .toHaveURL(`${process.env.ENABLE_BASE_URL}/Modules/Financials/snapshots`);
+    await this.page.waitForLoadState("networkidle");
     await this.page.goBack();
   }
 
@@ -314,6 +319,7 @@ exports.EnableDashboardPage = class EnableDashboardPage {
       .toHaveURL(
         `${process.env.ENABLE_BASE_URL}/Modules/WatchlistApp/Opportunities`
       );
+    await this.page.waitForLoadState("networkidle");
     await this.page.goBack();
   }
 
@@ -327,6 +333,7 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     await expect
       .soft(this.page)
       .toHaveURL(`${process.env.ENABLE_BASE_URL}/Admin/Processing`);
+    await this.page.waitForLoadState("networkidle");
     await this.page.goBack();
   }
 };
