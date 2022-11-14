@@ -55,7 +55,7 @@ steps:
       artifactName: "Playwright Test Report"
 
   - script: |
-      ./node_modules/.bin/allure generate ./allure-results -o allure-report --clean
+      ./node_modules/.bin/allure generate ./allure-results
     displayName: "Generate Allure Test Report"
 
   - task: PublishBuildArtifacts@1
