@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "./node_modules/.bin/playwright test",
+    "allure-generate": "./node_modules/.bin/allure generate ./allure-results --clean",
+    "allure-open": "./node_modules/.bin/allure open ./allure-report"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UtkarshaAgrawal/enable-assignment.git"
