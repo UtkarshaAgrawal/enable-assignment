@@ -145,7 +145,6 @@ exports.EnableDashboardPage = class EnableDashboardPage {
   async testprogramSearchbutton() {
     // test the supplier or program search button
     await this.programsearchButton.type("Heritage");
-    //await this.page.waitForLoadState("networkidle");
     await this.page.waitForResponse("**/Api/Dashboard/Search");
     const count = await this.searchmultipleResults.count();
     console.log("count is:" + count);
