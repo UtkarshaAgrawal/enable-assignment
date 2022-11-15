@@ -49,9 +49,6 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     this.testProgramLink = page.locator('a[href*="Deals/Deals/Wizard"]');
     this.browsesupplierLink = page.locator("text=Browse suppliers");
     this.getstartedTile = page.locator(".userflow");
-    // this.tilesContainer = page.locator(
-    //   ".tiles-container__tile >> text=Get Started"
-    // );
     this.frame1 = page.frameLocator('iframe[role="presentation"]').first();
     this.frame1Button = this.frame1.locator('[data-testid="minimize-button"]');
     this.programearningFile = page.locator("text=Program Earnings");
@@ -147,13 +144,10 @@ exports.EnableDashboardPage = class EnableDashboardPage {
 
   async testprogramSearchbutton() {
     // test the supplier or program search button
-    await this.programsearchButton.type("Heritage Bathrooms");
-    //await this.page.pause();
-    await this.page.waitForLoadState("networkidle");
+    await this.programsearchButton.type("Heritage");
+    await this.page.waitForResponse("**/Api/Dashboard/Search");
     const count = await this.searchmultipleResults.count();
-    console.log("count is:" + count);
     for (let i = 0; i < count; i++) {
-      console.log(this.searchmultipleResults.nth(i).textContent());
       await expect
         .soft(this.searchmultipleResults.nth(i))
         .toHaveText("Heritage Bathrooms");
@@ -198,13 +192,11 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     await this.getstartedTile.hover();
     await this.getstartedTile.click();
     await this.page.waitForLoadState("networkidle");
-    //await this.frame1Button.waitFor();
     await this.frame1Button.click();
   }
 
   async testProgramearningfile() {
     //check the program earnings tile is present on the page
-    //await this.programearningFile.hover();
     await this.programearningFile.click();
     await this.page.waitForLoadState("networkidle");
     await expect
