@@ -36,7 +36,14 @@ const config = {
     ["list"],
     ["html", { open: "never" }],
     ["junit", { outputFile: "results.xml" }],
-    ["allure-playwright"],
+    [
+      "allure-playwright",
+      {
+        detail: true,
+        outputFolder: "allure-results",
+        suiteTitle: false,
+      },
+    ],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
