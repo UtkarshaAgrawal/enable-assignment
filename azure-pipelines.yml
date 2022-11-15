@@ -53,13 +53,3 @@ steps:
     inputs:
       pathToPublish: "playwright-report/"
       artifactName: "Playwright Test Report"
-
-  - script: |
-      ./node_modules/.bin/allure generate allure-results
-    displayName: "Generate Allure Test Report"
-
-  - task: PublishBuildArtifacts@1
-    condition: succeededOrFailed()
-    inputs:
-      pathToPublish: "allure-report/"
-      artifactName: "Publish Allure Report"
