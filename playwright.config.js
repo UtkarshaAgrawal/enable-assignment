@@ -35,7 +35,7 @@ const config = {
   reporter: [
     // ["list"],
     // ["html", { open: "never" }],
-    //["junit", { outputFile: "results.xml" }],
+    ["junit", { outputFile: "results.xml" }],
     [
       "allure-playwright",
       {
