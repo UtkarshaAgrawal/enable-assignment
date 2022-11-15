@@ -33,15 +33,15 @@ const config = {
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-    ["list"],
-    ["html", { open: "never" }],
-    ["junit", { outputFile: "results.xml" }],
+    // ["list"],
+    // ["html", { open: "never" }],
+    //["junit", { outputFile: "results.xml" }],
     [
       "allure-playwright",
       {
         detail: true,
         outputFolder: "allure-results",
-        suiteTitle: false,
+        suiteTitle: true,
       },
     ],
   ],
