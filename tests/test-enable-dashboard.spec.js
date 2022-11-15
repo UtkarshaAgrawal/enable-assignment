@@ -28,7 +28,7 @@ test("homepage dashboard has menu, header and tiles", async ({
   await enableDashboard.testexternalEarningslink();
   await enableDashboard.testactivityStar();
   await enableDashboard.testprogramSearchbutton();
-  await enableDashboard.testsearchResult();
+  //await enableDashboard.testsearchResult();
 
   // test the blog article link is working fine
   await enableDashboard.testArticlelink(context);

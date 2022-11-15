@@ -43,6 +43,7 @@ exports.EnableDashboardPage = class EnableDashboardPage {
     this.testactivitystarLink = page.locator("(//span[@class='title'])[1]");
     this.tooltip = page.locator(".tooltip");
     this.programsearchButton = page.locator('input[placeholder*="Supplier"]');
+    this.searchmultipleResults = page.locator(".details .trading-partner-name");
     this.testSearchresult = page.locator("text=Heritage Bathrooms").nth(3);
     this.testarticleLink = page.locator(".blog-article-tile__link");
     this.testProgramLink = page.locator('a[href*="Deals/Deals/Wizard"]');
@@ -146,7 +147,17 @@ exports.EnableDashboardPage = class EnableDashboardPage {
 
   async testprogramSearchbutton() {
     // test the supplier or program search button
-    await this.programsearchButton.type("heritage");
+    await this.programsearchButton.type("Heritage Bathrooms");
+    //await this.page.pause();
+    await this.page.waitForLoadState("networkidle");
+    const count = await this.searchmultipleResults.count();
+    console.log("count is:" + count);
+    for (let i = 0; i < count; i++) {
+      console.log(this.searchmultipleResults.nth(i).textContent());
+      await expect
+        .soft(this.searchmultipleResults.nth(i))
+        .toHaveText("Heritage Bathrooms");
+    }
   }
 
   async testsearchResult() {
