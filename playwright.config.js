@@ -33,8 +33,8 @@ const config = {
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-    // ["list"],
-    // ["html", { open: "never" }],
+    ["list"],
+    ["html", { open: "never" }],
     ["junit", { outputFile: "results.xml" }],
     [
       "allure-playwright",
@@ -66,18 +66,18 @@ const config = {
         ...devices["Desktop Chrome"],
       },
     },
-    {
-      name: "webkit",
-      use: {
-        ...devices["Desktop Safari"],
-      },
-    },
-    {
-      name: "firefox",
-      use: {
-        ...devices["Desktop Firefox"],
-      },
-    },
+    // {
+    //   name: "webkit",
+    //   use: {
+    //     ...devices["Desktop Safari"],
+    //   },
+    // },
+    // {
+    //   name: "firefox",
+    //   use: {
+    //     ...devices["Desktop Firefox"],
+    //   },
+    // },
 
     /* Test against mobile viewports. */
     // {
