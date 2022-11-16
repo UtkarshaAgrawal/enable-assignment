@@ -3,10 +3,7 @@ const { test, expect } = require("@playwright/test");
 const fs = require("fs");
 const pdf = require("pdf-parse");
 
-test("homepage dashboard has menu, header and tiles", async ({
-  page,
-  context,
-}) => {
+test("test and read the enable workflow report", async ({ page, context }) => {
   // user logs into enable dashboard
   await page.goto(process.env.ENABLE_LOGIN_URL);
 
